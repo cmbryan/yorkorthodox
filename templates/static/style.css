@@ -1,0 +1,177 @@
+.container {
+        max-width: unset;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: 0.6em;
+    }
+    
+    .column-10 {
+        background-color: rgb(218, 196, 196);
+    }
+
+    .fa {
+        font-size: 2.1rem;
+    }
+    
+    #nic {
+        float: right;
+        position: sticky;
+        top: 1em;
+        padding: 0.5em;
+    }
+
+    #nic a {
+        color: black;
+    }
+    
+    /* #nav {
+        position: sticky;
+        top: 0;
+    } */
+
+    #navlinks {
+        display: none;
+    }
+
+    #navlinks a {
+        color: #f2f2f2;
+        padding: .4em 1em;
+        text-decoration: none;
+        font-size: 1.35rem;
+        display: block;
+        background-color: black;
+        text-align: right;
+    }
+    
+    #topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    
+    #topnav a.active {
+        background-color: #04AA6D;
+        color: white;
+    }
+    
+    #bannerimg {
+        background-image: url("img/constantine_community.jpg");
+        height: 0px;
+        padding-top: 30%;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    #myHeader #headertext {
+        font-family: Cinzel;
+        font-size: 1.4vw;
+        line-height: 0.9;
+        padding: 1.2em;
+        color: #333;
+        position: fixed;
+        top: 1em;
+        background: rgba(240, 240, 240, 0.8);
+    }
+    
+    #myHeader #ht1 {
+        color: #555;
+    }
+    
+    #myHeader #ht2 {
+        font-size: 2.8em;
+        font-style: bold;
+    }
+    
+    #myHeader #ht3 {
+        font-family: "PT Serif";
+        font-style: italic;
+        color: #777;
+    }
+
+    
+    #myHeader #navIcon {
+        color: black;
+        background-color: rgba(240, 240, 240, 0.8);
+        float: right;
+    }
+
+    .fa {
+        margin: 0.8rem;
+        width: 100%;
+        text-align: right;
+        padding-right: 2rem;
+    }
+    
+    .fixed {
+        position: fixed !important;
+        top: 0px;
+        width: 100%;
+    }
+    
+    .invisible {
+        display: none !important;
+    }
+    
+    .fullwidth {
+        width: 100%;
+        position: fixed;
+        top: 0;
+    }
+    
+    #lectionary-content {
+        margin: 1em 1em 0 3em;
+        max-width: 50em;
+    }
+    
+    .lection-commem {
+        font-style: italic;
+    }
+    
+    #lection-titles {
+        font-weight: bold;
+    }
+    
+    #date {
+        /* margin: 0em 1em 1em 1em;
+    padding: 0.5em; */
+        overflow: hidden;
+        width: fit-content;
+        margin: auto;
+        background-color: aqua;
+    }
+    
+    #date-content {}
+    
+    #lection-date {
+        text-align: center;
+        margin-bottom: 0;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    
+    .calendar-select-elt {
+        float: left;
+    }
+
+    /* breakpoint widths determined by milligram css */
+    @media screen and (min-width: 40.0rem) {
+        /* #nav {
+            position: sticky;
+            top: 0;
+            background-color: black;
+        }
+        #navlinks {
+            display: inline;
+        }
+        #navlinks a {
+            display: inline;
+        } */
+    }
+    
+    @media screen and (max-width: 80.0rem) {}
