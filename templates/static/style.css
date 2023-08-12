@@ -160,18 +160,24 @@
     }
 
     /* breakpoint widths determined by milligram css */
-    @media screen and (min-width: 40.0rem) {
-        /* #nav {
-            position: sticky;
-            top: 0;
-            background-color: black;
-        }
+
+/* Larger than mobile screen */
+@media (min-width: 40.0rem) {
         #navlinks {
             display: inline;
+            background-color: black;
         }
         #navlinks a {
             display: inline;
-        } */
+        }
     }
     
-    @media screen and (max-width: 80.0rem) {}
+    /* @media screen and (min-width: 80.0rem) {
+        /*
+        #nic {
+            float: unset;
+        }
+        #nic a {
+            display: none;
+        } */
+    } */

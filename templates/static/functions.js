@@ -26,7 +26,6 @@ function setScroll() {
 
     var newWidth = minWidth + scrollPosition*1.9;
     newWidth = Math.min(newWidth, parentWidth);
-    console.log(newWidth + "px");
     headerText.style.width = newWidth + "px";
 
 }
