@@ -140,6 +140,12 @@ h6 {
 
 /* breakpoint widths determined by milligram css */
 
+@media (max-width: 40.0rem) {
+    .column-40 {
+        max-width: 100% !important;
+    }
+}
+
 /* Larger than mobile screen */
 @media (min-width: 40.0rem) {
     #navlinks {
