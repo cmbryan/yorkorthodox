@@ -19,25 +19,26 @@
 </head>
 
 <body class="container">
-    <div id="header">
-        <div id="nic">
-            <a href="javascript:void(0);" id="navIcon" onclick="navlinkVisibility()">
-                <i class="fa fa-bars"></i>
-            </a>
+    <div id="headerblock">
+        <div id="header">
+            <div id="nic">
+                <a href="javascript:void(0);" id="navIcon" onclick="navlinkVisibility()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <div id="headertext">
+                <div id="ht1">The Orthodox Christian Community of</div>
+                <div id="ht2">St Constantine</div>
+                <div id="ht3">The Church of Antioch in the City of York</div>
+            </div>
         </div>
-        <div id="headertext">
-            <div id="ht1">The Orthodox Christian Community of</div>
-            <div id="ht2">St Constantine</div>
-            <div id="ht3">The Church of Antioch in the City of York</div>
+        <div id="navlinks">
+            <a href="/#services">Services</a>
+            <a href="/#praying-at-home">Prayer</a>
+            <a href="/daily">Bible&nbsp;&&nbsp;Saints</a>
+            <a href="/faith">Orthodoxy</a>
+            <a href="/#contact-us">Contact</a>
         </div>
-    </div>
-    <div id="navlinks">
-        <a href="/#services">Services</a>
-        <a href="/#praying-at-home">Prayer</a>
-        <a href="/daily">Bible&nbsp;&&nbsp;Saints</a>
-        <a href="/faith">Orthodoxy</a>
-        <a href="/#contact-us">Contact</a>
-    </div>
     </div>
     {% block content %}
     {% endblock content %}

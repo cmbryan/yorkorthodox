@@ -56,7 +56,12 @@ h6 {
     padding: 1.2em;
     color: #333;
     top: 1em;
-    background: rgba(240, 240, 240, 0.8);
+    background: rgba(240, 240, 240, 0.87);
+}
+
+#headerblock {
+    position: sticky;
+    top: 0px;
 }
 
 #headertext {
