@@ -8,28 +8,6 @@ function navlinkVisibility() {
     }
 }
 
-// scrolling
-window.onscroll = function() { setScroll() };
-
-const navbar = document.getElementById("topnav");
-const bannerImg = document.getElementById("bannerimg");
-const headerText = document.getElementById("headertext");
-const headerBlock = document.getElementById("headerblock");
-
-const parentWidth = headerText.parentElement.clientWidth;
-const minWidth = headerText.clientWidth + 1;
-
-function setScroll() {
-    const scrollPosition = window.scrollY;
-    const opacity = Math.min(scrollPosition*0.001 + 0.8, 1.0);
-    headerText.style.backgroundColor = 'rgba(240,240,240,' + opacity + ')';
-
-    var newWidth = minWidth + scrollPosition*1.9;
-    newWidth = Math.min(newWidth, parentWidth);
-    headerText.style.width = newWidth + "px";
-
-}
-
 // daily readings
 $(function() {
     $("#datepicker").datepicker({

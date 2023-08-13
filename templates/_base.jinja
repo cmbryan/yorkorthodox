@@ -10,9 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Cinzel|PT+Serif:400,400i,700|PT+Sans:400,700"
         rel="stylesheet" />
-    <!-- CSS Reset -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" />
-    <!-- Milligram CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css" />
     <!-- Needed for hamburger menu -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -21,35 +19,29 @@
 </head>
 
 <body class="container">
-    <div class="page">
-        <div id="bannerimg">
-        </div>
-
-        <header>
-            <div id="myHeader">
-                <div id="headertext">
-                    <div id="ht1">The Orthodox Christian Community of</div>
-                    <div id="ht2">St Constantine</div>
-                    <div id="ht3">The Church of Antioch in the City of York</div>
-                </div>
-            </div>
-        </header>
+    <div id="header">
         <div id="nic">
             <a href="javascript:void(0);" id="navIcon" onclick="navlinkVisibility()">
                 <i class="fa fa-bars"></i>
             </a>
-            <div id="navlinks">
-                <a href="/#about-us" onclick="navlinkVisibility()">About Us</a>
-                <a href="/#services">Services</a>
-                <a href="/#praying-at-home">Prayer</a>
-                <a href="/daily">Bible & Saints</a>
-                <a href="/faith">Orthodoxy</a>
-                <a href="/#contact-us">Contact</a>
-            </div>
         </div>
-        {% block content %}
-        {% endblock content %}
+        <div id="headertext">
+            <div id="ht1">The Orthodox Christian Community of</div>
+            <div id="ht2">St Constantine</div>
+            <div id="ht3">The Church of Antioch in the City of York</div>
+        </div>
     </div>
+    <div id="navlinks">
+        <a href="/#about-us" onclick="navlinkVisibility()">About&nbsp;Us</a>
+        <a href="/#services">Services</a>
+        <a href="/#praying-at-home">Prayer</a>
+        <a href="/daily">Bible&nbsp;&&nbsp;Saints</a>
+        <a href="/faith">Orthodoxy</a>
+        <a href="/#contact-us">Contact</a>
+    </div>
+    </div>
+    {% block content %}
+    {% endblock content %}
     <script type="text/javascript" src="static/functions.js"></script>
 </body>
 
