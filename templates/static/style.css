@@ -145,6 +145,9 @@ h6 {
     #navlinks {
         display: block;
     }
+    #nic {
+        display: none;
+    }
 }
 
 /* @media screen and (min-width: 80.0rem) {
