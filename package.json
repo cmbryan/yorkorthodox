@@ -1,0 +1,19 @@
+{
+  "name": "yorkorthodox_nt",
+  "version": "1.0.0",
+  "description": "The New Testament",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmbryan/yorkorthodox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmbryan/yorkorthodox/issues"
+  },
+  "homepage": "https://github.com/cmbryan/yorkorthodox#readme"
+}
