@@ -49,6 +49,14 @@ h6 {
     color: white;
 } */
 
+h2::before {
+  content: '';
+  display: block;
+  height:      3.2em;
+  margin-top: -3.2em;
+  visibility: hidden;
+}
+
 #header {
     font-family: Cinzel;
     font-size: 1.4vw;
