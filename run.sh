@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
 # Run development versions of both the website and the REST server
 
-./site/run.sh &
-./rest/run.sh
+cd site; sh ./run.sh &
+cd ../rest; sh ./run.sh

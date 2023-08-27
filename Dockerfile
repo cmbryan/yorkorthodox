@@ -4,23 +4,23 @@ LABEL Name=yorkorthodox=0.0.1
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
-RUN addgroup -g ${GROUP_ID} -S user
-RUN adduser -u ${USER_ID} -S user -G user -s /bin/sh
+RUN addgroup -g ${GROUP_ID} -S user && \
+    adduser -u ${USER_ID} -S user -G user -s /bin/sh
+COPY sudoers /etc/sudoers.d/sudoers
 
 RUN apk update && \
-    apk add --no-cache python3 py3-pip git curl
+    apk add --no-cache python3 py3-pip git curl sudo openssh
 
 # Set the working directory
 WORKDIR /app
 
 # Copy your Flask application code into the container
 COPY . /app
-RUN pip3 install --user -r rest/requirements.txt -r site/requirements.txt
+RUN pip3 install -r rest/requirements.txt -r site/requirements.txt
 
-EXPOSE 8000
-EXPOSE 5000
+EXPOSE 8000 5000
 
 USER user
 
-# Command to run the Flask application
-CMD ["bash", "./run.sh"]
+RUN curl -L https://fly.io/install.sh | sh && \
+    echo export PATH="/home/user/.fly/bin:$PATH" >> /home/user/.profile

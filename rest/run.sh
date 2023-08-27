@@ -1,12 +1,4 @@
-#!/bin/bash
-
-# Python requirements
-pip3 install -r requirements.txt
-
-# Fly hosting CLI
-apt update && apt install -y curl
-curl -L https://fly.io/install.sh | sh
-echo export PATH="/root/.fly/bin:$PATH" >> ~/.bashrc
+#!/bin/sh
 
 # Run the server on :5000, restarting on failure
 # (Ctrl-C twice to exit)
