@@ -12,7 +12,9 @@ def __get_table_columns(conn: Connection, table_name: str) -> List[str]:
     return [row[1] for row in result]
 
 
-with sqlite3.connect('db/lectionary_2021_2031.db') as conn:
+db_path = 'db/lectionary_2021_2031.db'
+
+with sqlite3.connect(db_path) as conn:
     table_columns = __get_table_columns(conn, 'main')
 
 app = Flask(__name__)
@@ -22,9 +24,9 @@ def hello(name=None):
     return render_template('hello.html', name=name)
 
 
-@app.route('/lectionary/<date>', methods=['GET'])
-def get_date(date):
-    with sqlite3.connect('db/lectionary_2021_2031.db') as conn:
+@app.route('/lectionary_raw/<date>', methods=['GET'])
+def get_raw_date(date):
+    with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()
         query = f"SELECT * FROM main WHERE date_code = '{date}'"
         cursor.execute(query)
@@ -34,3 +36,26 @@ def get_date(date):
         return jsonify(dict(zip(table_columns, result)))
     else:
         return jsonify({'error': 'Data not found'}), 404
+
+
+@app.route('/lectionary/<date>', methods=['GET'])
+def get_date(date):
+    with sqlite3.connect(db_path) as conn:
+        cursor = conn.cursor()
+        query = f"SELECT * FROM main WHERE date_code = '{date}'"
+        cursor.execute(query)
+        result = cursor.fetchone()
+
+    if not result:
+        return jsonify({'error': 'Data not found'}), 404
+    
+    data_dict = dict(zip(table_columns, result))
+
+    # format designations
+    data_dict['desig'] = ', '.join([d for d in [data_dict['desig_a'], data_dict['desig_g']] if d])
+    data_dict.pop('desig_a')
+    data_dict.pop('desig_g')
+
+    # 
+
+    return jsonify(data_dict)
