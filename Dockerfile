@@ -9,7 +9,7 @@ RUN addgroup -g ${GROUP_ID} -S user && \
 COPY sudoers /etc/sudoers.d/sudoers
 
 RUN apk update && \
-    apk add --no-cache python3 py3-pip git curl sudo openssh
+    apk add --no-cache python3 py3-pip git curl sudo openssh sqlite
 
 # Set the working directory
 WORKDIR /app
