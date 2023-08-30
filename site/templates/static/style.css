@@ -1,7 +1,7 @@
-/* .container {
-    max-width: unset;
+.container {
+    min-width: 42rem;
 }
-
+/*
 h1,
 h2,
 h3,
@@ -12,6 +12,32 @@ h6 {
 }
 
 */
+
+.flex-section {
+  display: flex;
+}
+
+.section {
+  border-top: 2px solid #3A587B;
+  margin-bottom: 2.4rem;
+}
+
+.left-element {
+  flex: 1;
+  margin-right: 0.8rem;
+}
+
+.right-element {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 0.8rem;
+}
+
+.section-img {
+  /* height: 20rem; */
+  max-width: 37%;
+}
 
 .fa {
     font-size: 2.1rem;
