@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify
+from flask_cors import cross_origin
 import sqlite3
 from sqlite3 import Connection, Cursor
 from typing import List
@@ -39,6 +40,7 @@ def get_raw_date(date):
 
 
 @app.route('/lectionary/<date>', methods=['GET'])
+@cross_origin()
 def get_date(date):
     with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()

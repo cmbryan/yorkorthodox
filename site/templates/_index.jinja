@@ -10,7 +10,9 @@
 
 {% block content %}
 <div id="pagecontent">
-    <p/>
+    <div class="small-pic">
+        <img src="static/img/parish_2023_03_crop.jpg"/>
+    </div>
     <div class="section flex-section">
         <div class="left-element">
             <h2>Welcome</h2>
@@ -19,17 +21,21 @@
             We meet at the Chapel of York St. John University where we celebrate the Divine Liturgy every Sunday and
             other liturgical services, all in the English language.
         </div>
-        <div class="right-element section-img">
+        <div class="right-element section-img large-pic">
             <img src="static/img/parish_2023_03_crop.jpg"/>
-            {# <img class="section-img" src="static/img/constantine2.jpg"/> #}
         </div>
     </div>
     <div class="section row">
         <div class="column">
-            <h2>Today's...</h2>
+            <div id="daily-date"></div>
+            <i>Today we commemorate:</i>
+            <div id="daily-commem-general"></div>
+            <i>British Isles and Ireland:</i>
+            <div id="daily-commem-british"></div>
         </div>
         <div class="column">
-            <h2>Services...</h2>
+            <h3>Services...</h3>
+            <iframe id="embedded-cal" src="https://calendar.google.com/calendar/embed?wkst=1&bgcolor=%23ffffff&ctz=Europe%2FLondon&src=ZW4wbjhrcDJic3JxaGVjNTE3YTFhOWM0ZTBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%23B39DDB" frameborder="0" scrolling="no"></iframe>
         </div>
     </div>
     <p/>

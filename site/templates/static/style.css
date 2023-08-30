@@ -19,7 +19,8 @@ h6 {
 
 .section {
   border-top: 2px solid #3A587B;
-  margin-bottom: 2.4rem;
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
 .left-element {
@@ -177,11 +178,24 @@ h2::before {
     float: left;
 }
 
+#embedded-cal {
+    border: solid 0px #777;
+    width: 100%;
+    height: 100%;
+    min-height: 33rem;
+}
+
 /* breakpoint widths determined by milligram css */
 
 @media (max-width: 40.0rem) {
     .column-40 {
         max-width: 100% !important;
+    }
+    .small-pic {
+        display: inherit;
+    }
+    .large-pic {
+        display: None;
     }
 }
 
@@ -192,6 +206,12 @@ h2::before {
     }
     #nic {
         display: none;
+    }
+    .small-pic {
+        display: none;
+    }
+    .large-pic {
+        display: unset;
     }
 }
 
