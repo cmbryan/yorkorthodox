@@ -36,10 +36,14 @@ function getData(url, mode, callback) {
 
 // dynamic content
 document.addEventListener("DOMContentLoaded", function () {
+    var is_debug = window.location.host.startsWith("localhost") || window.location.host.startsWith("127.0.0.1");
+    var rest_host = is_debug ? "http://localhost:5000" : "https://yorkorthodox-rest.fly.dev"
+    rest_host = "https://yorkorthodox-rest.fly.dev"
+
     var formattedDate = getTodaysDate();
 
     // Lectionary
-    getData(`http://localhost:5000/lectionary?date=${formattedDate}`,
+    getData(`${rest_host}/lectionary?date=${formattedDate}`,
             'GET',
             function(data) {
                 document.getElementById("daily-date").innerHTML = `<h2>${data.date_str}</h2>`;
@@ -49,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     // Services
-    getData(`http://localhost:5000/services?date=${formattedDate}&num_services=5`,
+    getData(`${rest_host}/services?date=${formattedDate}&num_services=5`,
             'GET',
             function(data) {
                 content = "";
