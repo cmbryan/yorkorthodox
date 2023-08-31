@@ -8,13 +8,7 @@ function navlinkVisibility() {
     }
 }
 
-// daily readings
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Create a new XMLHttpRequest object
-    var xhr = new XMLHttpRequest();
-
-    // Get the current date
+function getTodaysDate() {
     var currentDate = new Date();
 
     // Extract the year, month, and day
@@ -23,31 +17,54 @@ document.addEventListener("DOMContentLoaded", function () {
     var day = String(currentDate.getDate()).padStart(2, '0');
 
     // Format the date as "YYYY-MM-DD"
-    var formattedDate = `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`;
+}
 
-    // Define the REST API URL
-    var apiUrl = `http://localhost:5000/lectionary/${formattedDate}`;
-
-    // Configure the AJAX request
-    xhr.open("GET", apiUrl, true);
-
-    // Set up a callback for when the request completes
+function getData(url, mode, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(mode, url, true);
+    xhr.onload = callback;
     xhr.onload = function () {
         if (xhr.status === 200) {
             var responseData = JSON.parse(xhr.responseText);
-            displayData(responseData);
+            callback(responseData);
         }
     };
-
-    // Send the request
     xhr.send();
+}
 
-    // Function to display the data on the webpage
-    function displayData(data) {
-        document.getElementById("daily-date").innerHTML = `<h2>${data.date_str}</h2>`;
-        document.getElementById("daily-commem-general").innerHTML = data.general_commem;
-        document.getElementById("daily-commem-british").innerHTML = data.british_commem;
-    }
+
+// dynamic content
+document.addEventListener("DOMContentLoaded", function () {
+    var formattedDate = getTodaysDate();
+
+    // Lectionary
+    getData(`http://localhost:5000/lectionary?date=${formattedDate}`,
+            'GET',
+            function(data) {
+                document.getElementById("daily-date").innerHTML = `<h2>${data.date_str}</h2>`;
+                document.getElementById("daily-commem-general").innerHTML = data.general_commem;
+                document.getElementById("daily-commem-british").innerHTML = data.british_commem;
+            }
+    );
+
+    // Services
+    getData(`http://localhost:5000/services?date=${formattedDate}&num_services=5`,
+            'GET',
+            function(data) {
+                content = "";
+                for (const service of data) {
+                    content += "<p>";
+                    content += `<b>${service.date}</b><br/>`;
+                    if (service.commemoration) {
+                        content += `<i>${service.commemoration}</i><br/>`;
+                    }
+                    content += service.description;
+                    content += "</p>";
+                }
+                document.getElementById("services").innerHTML = content;
+            }
+    );
 });
 
 // $(function() {

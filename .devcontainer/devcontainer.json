@@ -20,7 +20,8 @@
 			"extensions": [
 				"samuelcolvin.jinjahtml",
 				"noxiz.jinja-snippets",
-				"sugatoray.jinja-extension-pack"
+				"sugatoray.jinja-extension-pack",
+				"alexcvzz.vscode-sqlite"
 			]
 		}
 	},

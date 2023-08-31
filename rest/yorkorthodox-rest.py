@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_cors import cross_origin
 import sqlite3
 from sqlite3 import Connection, Cursor
@@ -21,31 +21,18 @@ with sqlite3.connect(db_path) as conn:
 app = Flask(__name__)
 
 @app.route('/')
-def hello(name=None):
-    return render_template('hello.html', name=name)
+def hello():
+    return render_template('hello.html')
 
 
-@app.route('/lectionary_raw/<date>', methods=['GET'])
-def get_raw_date(date):
-    with sqlite3.connect(db_path) as conn:
-        cursor = conn.cursor()
-        query = f"SELECT * FROM main WHERE date_code = '{date}'"
-        cursor.execute(query)
-        result = cursor.fetchone()
-
-    if result:
-        return jsonify(dict(zip(table_columns, result)))
-    else:
-        return jsonify({'error': 'Data not found'}), 404
-
-
-@app.route('/lectionary/<date>', methods=['GET'])
+@app.route('/lectionary', methods=['GET'])
 @cross_origin()
-def get_date(date):
+def get_date():
+    date = request.args.get('date')
     with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()
-        query = f"SELECT * FROM main WHERE date_code = '{date}'"
-        cursor.execute(query)
+        query = f"SELECT * FROM main WHERE date_code = ?"
+        cursor.execute(query, (date,))
         result = cursor.fetchone()
 
     if not result:
@@ -58,6 +45,25 @@ def get_date(date):
     data_dict.pop('desig_a')
     data_dict.pop('desig_g')
 
-    # 
-
     return jsonify(data_dict)
+
+
+@app.route('/services', methods=['GET'])
+@cross_origin()
+def get_services():
+    date = request.args.get('date')
+    num_services = request.args.get('num_services')
+
+    # Connect to the SQLite database
+    with sqlite3.connect('db/services.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT date_str, commemoration, Group_Concat(d.text, ", ")'
+                       ' FROM services s JOIN descriptions d ON d.service_id = s.id'
+                       ' WHERE timestamp >= ?'
+                       ' GROUP BY s.id'
+                       ' LIMIT ?',
+                       (date, num_services))
+        results = cursor.fetchall()
+
+    result = [dict(zip(['date', 'commemoration', 'description'], r)) for r in results]
+    return jsonify(result)
