@@ -12,10 +12,10 @@ h6 {
     line-height: 1.6;
 }
 
-.anchor {
+/* .anchor {
   margin-top: -12rem;
   padding-top: 12rem;
-}
+} */
 
 .flex-section {
   display: flex;
@@ -96,13 +96,11 @@ h2::before {
     color: #333;
     top: 1em;
     background: rgba(240, 240, 240, 0.87);
-    height:9rem;
 }
 
 #headerblock {
     position: sticky;
     top: 0px;
-    height: 12rem;
 }
 
 #headertext {
