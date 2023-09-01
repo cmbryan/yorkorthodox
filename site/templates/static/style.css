@@ -114,8 +114,9 @@ h2::before {
     color: #555;
 }
 
-#ht2 {
+#ht2 > a {
     font-size: 3.7rem;
+    color: #333 !important;
 }
 
 #ht3 {
