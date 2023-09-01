@@ -33,6 +33,13 @@ function getData(url, mode, callback) {
     xhr.send();
 }
 
+function setInnerHtmlIfExists(id, content) {
+    var element = document.getElementById(id);
+    if (element) {
+        element.innerHTML = content;
+    }
+}
+
 
 // dynamic content
 document.addEventListener("DOMContentLoaded", function () {
@@ -44,30 +51,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Lectionary
     getData(`${rest_host}/lectionary?date=${formattedDate}`,
-            'GET',
-            function(data) {
-                document.getElementById("daily-date").innerHTML = `<h2>${data.date_str}</h2>`;
-                document.getElementById("daily-commem-general").innerHTML = data.general_commem;
-                document.getElementById("daily-commem-british").innerHTML = data.british_commem;
-            }
+        'GET',
+        function (data) {
+            var references = data.a_lect_1;
+            references += data.a_lect_2 ? `; ${data.a_lect_2}` : "";
+            references += data.g_lect ? `; ${data.g_lect}` : "";
+            references += data.c_lect_1 ? `<br/><i>For the commemoration:</i> ${data.c_lect_1}` : "";
+            references += data.c_lect_2 ? `; ${data.c_lect_2}` : "";
+            references += data.x_lect_1 ? `<br/>${data.x_lect_1}` : "";
+            references += data.x_lect_2 ? `; ${data.x_lect_2}` : "";
+
+            setInnerHtmlIfExists("daily-date", data.date_str);
+            setInnerHtmlIfExists("major-commem", data.major_commem);
+            setInnerHtmlIfExists("daily-lect", references);
+            setInnerHtmlIfExists("daily-commem-general", data.general_commem);
+            setInnerHtmlIfExists("daily-commem-british", data.british_commem);
+
+            setInnerHtmlIfExists("a_text_1", data.a_text_1);
+            setInnerHtmlIfExists("a_text_2", data.a_text_2);
+            setInnerHtmlIfExists("g_text", data.g_text);
+            setInnerHtmlIfExists("c_text_1", data.c_text_1);
+            setInnerHtmlIfExists("c_text_2", data.c_text_2);
+            setInnerHtmlIfExists("x_text_1", data.x_text_1);
+            setInnerHtmlIfExists("x_text_2", data.x_text_2);
+        }
     );
 
     // Services
     getData(`${rest_host}/services?date=${formattedDate}&num_services=5`,
-            'GET',
-            function(data) {
-                content = "";
-                for (const service of data) {
-                    content += "<p>";
-                    content += `<b>${service.date}</b><br/>`;
-                    if (service.commemoration) {
-                        content += `<i>${service.commemoration}</i><br/>`;
-                    }
-                    content += service.description;
-                    content += "</p>";
+        'GET',
+        function (data) {
+            content = "";
+            for (const service of data) {
+                content += "<p>";
+                content += `<b>${service.date}</b><br/>`;
+                if (service.commemoration) {
+                    content += `<i>${service.commemoration}</i><br/>`;
                 }
-                document.getElementById("services").innerHTML = content;
+                content += service.description;
+                content += "</p>";
             }
+            setInnerHtmlIfExists("services", content);
+        }
     );
 });
 
