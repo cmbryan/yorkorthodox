@@ -21,7 +21,8 @@
 				"samuelcolvin.jinjahtml",
 				"noxiz.jinja-snippets",
 				"sugatoray.jinja-extension-pack",
-				"alexcvzz.vscode-sqlite"
+				"alexcvzz.vscode-sqlite",
+				"github.vscode-github-actions"
 			]
 		}
 	},

@@ -1,0 +1,44 @@
+name: "Build and Deploy"
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: deployment
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r site/requirements.txt -r rest/requirements.txt
+
+      - name: Build static pages
+        run: |
+          staticjinja build --static static --outpath www
+        working-directory: site
+
+      - name: Deploy to yorkorthodox.org
+        uses: sebastianpopp/ftp-action@v2.0.0
+        with: 
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: "site/www"
+          remoteDir: "httpdocs/newsite_2023"
