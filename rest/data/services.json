@@ -21,5 +21,13 @@
         "description": [
             "6.30pm Vesperal Liturgy &amp; Procession"
         ]
+    },
+    {
+        "date": "2023-09-17",
+        "time": "09:30",
+        "description": [
+            "9.30am Matins",
+            "10.15am Divine Liturgy"
+        ]
     }
 ]
