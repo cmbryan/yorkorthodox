@@ -7,9 +7,13 @@
 # Populate the yocal_main table of YOCal_master.db from the Year tables of YOCal.db
 
 import apsw
+import sys
 
 cal = apsw.Connection('YOCal.db')
 cur = cal.cursor()
+
+# Inputs
+yr_, yr_final_ = sys.argv[1:]
 
 # Get the first and last years to have a table in the database.
 # This gives a max and min for the range of yoars created in the new database.
@@ -32,20 +36,14 @@ while name == '' and yr_last > 1999:
    name = cur.fetchone()
    if not name: name = ''
 
-yr_ = input('Please enter the start year for the new database: ')
 yr = int(yr_)
-if yr < yr_first or yr > yr_last: 
-   yr_ = input('That is not a valid response. One more try: ')
-   yr = int(yr_)
-   if yr < yr_first or yr > yr_last: sys.exit
+if yr < yr_first or yr > yr_last:
+   raise Exception('Invalid year')
 
-yr_final_ = input('Please enter the final year for the new database: ')
+
 yr_final = int(yr_final_)
-if yr_final < yr or yr_final > yr_last: 
-   yr_final_ = input('That is not a valid response. One more try: ')
-   yr_final = int(yr_final_)
-
-   if yr_final < yr or yr_final > yr_last: sys.exit
+if yr_final < yr or yr_final > yr_last:
+   raise Exception('Invalid year')
 
 print('Tables for the years '+yr_+'-'+yr_final_+' will be populated')
 
@@ -78,5 +76,3 @@ cur.execute("COMMIT")
 cur.execute('''DETACH master''')
 
 cal.close()
-
-x = input('\n   All done... Press Enter to exit')

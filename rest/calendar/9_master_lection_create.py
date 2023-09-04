@@ -58,5 +58,3 @@ cur.execute('''CREATE TABLE yocal_lections (
 cur.execute("COMMIT")
 
 cal.close()
-
-x = input('\n   All done... Press Enter to exit')

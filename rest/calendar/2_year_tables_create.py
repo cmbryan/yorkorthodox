@@ -17,22 +17,19 @@
 import apsw
 import sys
 
+# Input variables
+yr_, yr_final_ = sys.argv[1:]
+
 # Get the range of years for which tables will be created
 
 print('A continuous series of year tables can be created betwenn 2000 and 2099') 
-yr_ = input('Please enter the start year: ')
 yr = int(yr_)
 if yr < 2000 or yr > 2099: 
-   yr_ = input('That is not a valid response. One more try: ')
-   yr = int(yr_)
-   if yr < 2000 or yr > 2099: sys.exit
+   raise Exception('Invalid year')
 
-yr_final_ = input('Please enter the final year: ')
 yr_final = int(yr_final_)
-if yr_final < yr or yr_final > 2099: 
-   yr_final_ = input('That is not a valid response. One more try: ')
-   yr_final = int(yr_final_)
-   if yr_final < yr or yr_final > 2099: sys.exit
+if yr_final < yr or yr_final > 2099:
+   raise Exception('Invalid year')
 
 print('Tables for the years '+yr_+'-'+yr_final_+' will be created')
 
@@ -87,5 +84,3 @@ while yr <= yr_final:
 cur.execute("COMMIT")
 
 cal.close()
-
-x = input('\n   All done... Press Enter to exit')

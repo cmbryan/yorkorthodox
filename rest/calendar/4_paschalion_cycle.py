@@ -741,5 +741,3 @@ while yr <= yr_final:
 cur.execute("COMMIT")
 
 cal.close()
-
-x = input('\n   All done... Press Enter to exit')

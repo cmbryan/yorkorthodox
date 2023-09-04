@@ -9,9 +9,7 @@
 
 import apsw
 
-db_name = input('Give the filename of the source database.\nFor YOCal_Master.db press Enter: ')
-if db_name == '': db_name = 'YOCal_Master.db'
-print('\n')
+db_name = 'YOCal_Master.db'
 
 # Open the database as 'cal' and set the cursor to 'cur':
 
@@ -40,8 +38,7 @@ while record < records + 1:
    
 txt = txt[:-1]
 
-file_out = input('\nEnter the name of the .csv file to be written\nFor mods.csv press Enter: ')
-if file_out == '': file_out = 'mods.csv'
+file_out = 'mods.csv'
 
 # Open the output file and write the text 
 f_out = open(file_out, 'w')
@@ -53,4 +50,3 @@ f_out.close()
 # Close the database and report back: 
 cal.close()
 print('\n... The file ' + file_out + ' has been saved in the DB folder.\n')
-x = input('   ... Press Enter to exit')

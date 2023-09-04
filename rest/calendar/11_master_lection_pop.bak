@@ -51,7 +51,7 @@ if records < 2:
    cur.execute('''INSERT INTO master.yocal_lections (code,lect_1,lect_2)
                SELECT date_key, apostle, gospel FROM Menaion WHERE apostle IS NOT '' ''')
                 
-else: input('The code and lection fields are already populated. ENTER continue.')
+else: print('The code and lection fields are already populated.')
 
 # The first five letters of the Book uniquely identify it.
 # Provide dictionaries to give the Bible Book No. and the Book Name
@@ -421,20 +421,17 @@ while entry <= end:
    entry += 1
 
 # Are the mods columns to be updated?
-mods = input('\nDo you want to update the modification columns from mods.csv? ')
-if mods == 'y' or mods == 'Y':
-   # Open the csv file and read the text 
-   f = open('mods.csv','r')
-   for row in f:
-      row = row.replace('%','\n')
-      items = row.split('\t')
-      if items[2] != '': items[2] = items[2].rstrip()
-      cur.execute('''UPDATE yocal_lections SET mod_1 = ?, mod_2 = ? WHERE code = ?''', (items[1], items[2], items[0]))
+f = open('mods.csv','r')
+for row in f:
+   row = row.replace('%','\n')
+   items = row.split('\t')
+   if items[2] != '': items[2] = items[2].rstrip()
+   cur.execute('''UPDATE yocal_lections SET mod_1 = ?, mod_2 = ? WHERE code = ?''', (items[1], items[2], items[0]))
 
-   print('\nThe mod columns have been updated.\n') 
+print('\nThe mod columns have been updated.\n') 
 
-   # Close source file
-   f.close()
+# Close source file
+f.close()
 
 
 cur.execute("COMMIT")
@@ -444,5 +441,3 @@ cal.close()
 # Draw attention to the changes needed
 print()
 print("The Text fields have now been populated.\nIf the Mod fields are also populated, please run the script\n '11_master_lection_correct.py' for required changes")
-
-x = input('   ... Press Enter to exit')
