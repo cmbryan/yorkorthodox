@@ -12,10 +12,10 @@ rm -rf ./YOCal.db ./YOCal_Master.db
 ./8_master_main_create.py
 ./9_master_lection_create.py
 ./10_master_main_tbl_pop.py 2023 2099
+./11_master_lection_pop.py
 ./12_master_lection_correct.py
 ./13_master_lection_create_mods_file.py
 # ./21_mysql_lections_file_create.py
 # ./22_mysql_main_file_create.py
 
-mv ./YOCal.db ../db
 mv ./YOCal_Master.db ../db
