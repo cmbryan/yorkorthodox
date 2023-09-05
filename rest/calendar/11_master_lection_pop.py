@@ -45,13 +45,23 @@ if records < 2:
       x = 'x' + ext
       cur.execute('''SELECT extra FROM G_Lections WHERE code = ?''',(ext,))
       lect = cur.fetchone()[0]
-      cur.execute('''INSERT INTO master.yocal_lections (code, lect_1) VALUES (?,?)''', (x,lect))
+      if ext == 'G7Wed':
+         cur.execute('''INSERT INTO master.yocal_lections (code, lect_1) VALUES (?,?)''', (x,lect))
+      else:
+         two_lect = lect.split('; ')
+         cur.execute('''INSERT INTO master.yocal_lections (code, lect_1, lect_2) VALUES (?,?,?)''', (x,two_lect[0],two_lect[1]))
 
-   # Finally add entries for the lections from the Menaion table.
-   cur.execute('''INSERT INTO master.yocal_lections (code,lect_1,lect_2)
+
+   # Now add entries for the lections from the Menaion table.
+   cur.execute('''INSERT INTO master.yocal_lections (code, lect_1, lect_2)
                SELECT date_key, apostle, gospel FROM Menaion WHERE apostle IS NOT '' ''')
+
+   # Finally add entries from the X_Lections table
+   cur.execute('''INSERT INTO master.yocal_lections (code, lect_1, lect_2)
+               SELECT code, apostle, gospel FROM X_Lections''')
+
                 
-else: print('The code and lection fields are already populated.')
+else: input('The code and lection fields are already populated. ENTER continue.')
 
 # The first five letters of the Book uniquely identify it.
 # Provide dictionaries to give the Bible Book No. and the Book Name
@@ -184,6 +194,13 @@ def lect_txt(lection):
          bk_code = info[1]
          bk_name = info[2]
 
+   # Is the reading from the OT?
+         try: bk_num_int = int(bk_num)
+         except: bk_num_int = 1
+         if bk_num_int not in range(41,67):
+            global OT_rdg
+            OT_rdg = 1
+
       # From the lection, discard the bk name 
       # leaving the chapter and verse data 'ref'
          bk_len = len(bk_name)
@@ -246,15 +263,18 @@ def lect_txt(lection):
                   vs_end = vs_begin
 
                # Finally get the text using the get_txt function 
-               # and add it to our master 'txt' together with a '...'
+               # and add it to our master 'txt' together with a '…'
                # so that breaks in the continuity of the reading are identified.
-               txt += get_txt(ch_begin, vs_begin, ch_end, vs_end, f)+" ... "
+               txt += get_txt(ch_begin, vs_begin, ch_end, vs_end, f)+" … "
 
                # As the loop completes, the whole text is assembled
 
-         # Remove the trailing unneeded '...' and any spaces.
-         txt = re.sub(r'... $','',txt)
+         # Remove the trailing unneeded '…' and any spaces.
+         txt = re.sub(r'… $','',txt)
          txt = txt.strip()
+
+         # Remove redundant quotation marks from interrupted speech
+         txt = re.sub(r'’ … ‘',' … ',txt)
 
          #  Ensure reading ends with full stop
          if txt[-1:].isalpha(): txt += '.'
@@ -324,16 +344,28 @@ def get_txt(ch_b, vs_b, ch_e, vs_e, f):
    txt1 = re.sub(r'(\\s.*\n)','',txt1)
    txt1 = re.sub(r'(\\c.*\n)','',txt1)
    txt1 = re.sub(r'(\\v \d+ )','',txt1)
+   txt1 = re.sub(r'(\\q3 *(\n)*)','<br>&emsp;',txt1)
+   txt1 = re.sub(r'(\\q4 *(\n)*)','<br>&emsp;&emsp;',txt1)
+   txt1 = re.sub(r'(\\qx *)','<br><br>',txt1)
    txt1 = re.sub(r'(\\q\d* *)','',txt1)
    txt1 = re.sub(r'(\\m *)','',txt1)
    txt1 = re.sub(r'(\\rq.*\\rq\*)','',txt1)
-   txt1 = re.sub(r'(\\f.*\\f\*)','',txt1)
+   # txt1 = re.sub(r'(\\f.*\\f\*)','',txt1)
 
    # Lines are joined by replacing new lines with a space
    txt1 = re.sub(r'(\n)',' ',txt1)
 
+ # Footnotes are removed
+   while txt1.count('\\f +') > 0:
+         subtxt1 = txt1.split('\\f +',1)[0]
+         subtxt2 = txt1.split('\\f*',1)[1]
+         txt1 = subtxt1 + subtxt2
+
    # Paragraph codes stripped.
-   # In the case of <pi> the opening quotation mark of the new para is removed 
+   # In the case of \pi3 the new line and intent are retained
+   # txt1 = re.sub(r'(\\pi3\\n‘)','\\n   ',txt1)
+  # txt1 = re.sub(r'(\\pi3 *‘)','<br>   ',txt1)
+  # In the case of \pi the opening quotation mark of the new para is removed 
    # - but first we need to know if any exist
    pi_count = txt1.count('\\pi')
    txt1 = re.sub(r'(\\pi ‘)',' ',txt1)
@@ -394,6 +426,9 @@ end = cur.fetchone()[0]
 #######
 entry = 1
 while entry <= end:
+
+   OT_rdg = 0
+
    cur.execute('''SELECT code, lect_1, lect_2 FROM yocal_lections WHERE rowid = ?''', (entry,))
    row = cur.fetchone()
    print(entry, row)
@@ -416,22 +451,31 @@ while entry <= end:
       text_2 = text_2.replace('[','')
       text_2 = text_2.replace(']','')
 
+# Add comment if readings are from the OT
+   OT_txt = '<em><small>The text and chapter and verse references of the Old Testament readings are those of the Septuagint</em></small><br><br>'
+   if OT_rdg == 1:
+      if text_2 == "": text_1 += OT_txt
+      else: text_2 += OT_txt
+
 # Update the database with the text
    cur.execute('''UPDATE yocal_lections SET text_1 = ?, text_2 = ? WHERE code = ?''', (text_1, text_2, code))
    entry += 1
 
 # Are the mods columns to be updated?
-f = open('mods.csv','r')
-for row in f:
-   row = row.replace('%','\n')
-   items = row.split('\t')
-   if items[2] != '': items[2] = items[2].rstrip()
-   cur.execute('''UPDATE yocal_lections SET mod_1 = ?, mod_2 = ? WHERE code = ?''', (items[1], items[2], items[0]))
+mods = input('\nDo you want to update the modification columns from mods.csv? ')
+if mods == 'y' or mods == 'Y':
+   # Open the csv file and read the text 
+   f = open('mods.csv','r')
+   for row in f:
+      row = row.replace('%','\n')
+      items = row.split('\t')
+      if items[2] != '': items[2] = items[2].rstrip()
+      cur.execute('''UPDATE yocal_lections SET mod_1 = ?, mod_2 = ? WHERE code = ?''', (items[1], items[2], items[0]))
 
-print('\nThe mod columns have been updated.\n') 
+   print('\nThe mod columns have been updated.\n') 
 
-# Close source file
-f.close()
+   # Close source file
+   f.close()
 
 
 cur.execute("COMMIT")
