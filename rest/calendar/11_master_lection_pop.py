@@ -6,6 +6,7 @@
 
 # First import the 're' module and the SQLite wrapper for Python:
 
+import os
 import re
 import apsw
 
@@ -462,8 +463,7 @@ while entry <= end:
    entry += 1
 
 # Are the mods columns to be updated?
-mods = input('\nDo you want to update the modification columns from mods.csv? ')
-if mods == 'y' or mods == 'Y':
+if os.path.exists('mods.csv'):
    # Open the csv file and read the text 
    f = open('mods.csv','r')
    for row in f:

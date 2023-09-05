@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-rm -rf ./YOCal.db ./YOCal_Master.db
+rm -rf ./YOCal.db ./YOCal_Master.db mods.csv
 
 ./1_fixed_tables_create_populate.py
 ./2_year_tables_create.py 2023 2099
