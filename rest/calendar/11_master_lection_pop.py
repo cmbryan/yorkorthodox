@@ -484,4 +484,4 @@ cal.close()
 
 # Draw attention to the changes needed
 print()
-print("The Text fields have now been populated.\nIf the Mod fields are also populated, please run the script\n '11_master_lection_correct.py' for required changes")
+print("The Text fields have now been populated.\nIf the Mod fields are also populated, please run the script\n '12_master_lection_correct.py' for required changes")
