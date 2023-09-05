@@ -34,15 +34,6 @@ jobs:
           ./generate_service_db.py
         working-directory: rest/scripts
 
-      - name: Setup Flyctl
-        uses: superfly/flyctl-actions/setup-flyctl@master
-
-      - name: Deploy REST service to https://yorkorthodox-rest.fly.dev/
-        run: flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-        working-directory: rest
-
       - name: Build static pages
         run: |
           staticjinja build --static static --outpath www

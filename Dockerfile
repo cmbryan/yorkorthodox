@@ -21,6 +21,3 @@ RUN pip3 install -r rest/requirements.txt -r site/requirements.txt
 EXPOSE 8000 5000
 
 USER user
-
-RUN curl -L https://fly.io/install.sh | sh && \
-    echo export PATH="/home/user/.fly/bin:$PATH" >> /home/user/.profile
