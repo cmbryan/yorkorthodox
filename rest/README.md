@@ -13,5 +13,5 @@ This service can be run on `localhost` using `run.sh`.
 
 ### Deployment
 
-The production server is hosted on `https://yorkorthodox-rest.fly.dev/`.
-To deploy the current state, first login using `fly auth login`, and then deploy with `fly deploy`.
+The production server is hosted on `https://yorkorthodox-rest.onrender.com`.
+The render service will pick up any changes to the rest folder on main, and re-deploy automatically.
