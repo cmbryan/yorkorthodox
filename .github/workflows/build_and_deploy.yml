@@ -29,11 +29,6 @@ jobs:
         run: |
           pip install -r site/requirements.txt -r rest/requirements.txt
 
-      - name: Generate the services database
-        run: |
-          ./generate_service_db.py
-        working-directory: rest/scripts
-
       - name: Build static pages
         run: |
           staticjinja build --static static --outpath www
