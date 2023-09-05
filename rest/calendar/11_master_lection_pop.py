@@ -208,9 +208,13 @@ def lect_txt(lection):
          ref = lect[bk_len+1:]
 
       # Find the name of the book source file and open it
-         f_name = 'USFM/' + bk_num + bk_code + '_obbe.SFM'
-#         f_name = 'TEMP/' + bk_num + bk_code + 'OBBE.SFM'
-         f = open(f_name,'r')
+         for ext in ['_obbe.SFM', 'OBBE.SFM']:
+            f_name = 'USFM/' + bk_num + bk_code + ext
+            if os.path.exists(f_name):
+               f = open(f_name,'r')
+               break
+         else:
+            raise Exception(f'Can\'t find {bk_code}')
       # Split up the ref so that each fragment can be retrieved.  
       # The initial chapter num is followed by ':', so split it off.
          chap = ref.split(':')[0]
