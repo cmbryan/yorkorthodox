@@ -22,7 +22,8 @@
 				"noxiz.jinja-snippets",
 				"sugatoray.jinja-extension-pack",
 				"alexcvzz.vscode-sqlite",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"ms-python.black-formatter"
 			]
 		}
 	},
