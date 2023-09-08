@@ -5,13 +5,13 @@ import os
 from pathlib import Path
 import sqlite3
 
-from rest.util import build_date_str, build_designation, get_data_dict
+from app.util import build_date_str, build_designation, get_data_dict
 
 
 cwd = Path(os.path.realpath(os.path.dirname(__file__)))
 
-lectionary_db_path = cwd / '..' / 'db' / 'YOCal_master.db'
-output_path = cwd / '..' / 'db' / 'services.db'
+lectionary_db_path = cwd / '..' / 'app' / 'db' / 'YOCal_master.db'
+output_path = cwd / '..' / 'app' / 'db' / 'services.db'
 if os.path.exists(output_path):
     os.remove(output_path)
 assert os.path.exists(output_path.parent), "lectionary database is needed"
