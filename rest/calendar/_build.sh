@@ -18,4 +18,5 @@ rm -rf ./YOCal.db ./YOCal_Master.db mods.csv
 # ./21_mysql_lections_file_create.py
 # ./22_mysql_main_file_create.py
 
+mkdir -p ../db
 mv ./YOCal_Master.db ../db

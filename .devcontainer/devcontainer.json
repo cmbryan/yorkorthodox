@@ -35,5 +35,9 @@
 		"source=${localEnv:HOME}/.gitconfig-personal,target=/root/.gitconfig,type=bind"
 	],
 
+	"containerEnv": {
+		"PYTHONPATH": "/workspaces/yorkorthodox:"
+	},
+
 	"postStartCommand": "sh run.sh"
 }

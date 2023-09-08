@@ -5,36 +5,11 @@ import sqlite3
 from sqlite3 import Connection, Cursor
 from typing import List, Tuple
 
-cwd = os.path.dirname(os.path.realpath(__file__))
-lectionary_db_path = f"{cwd}/db/YOCal_Master.db"
-services_db_path = f"{cwd}/db/services.db"
+from .util import NoDataException, build_date_str, build_designation, get_data_dict, get_services, query
 
 
-class NoDataException(Exception):
-    pass
 
 
-def __query(query, args=tuple(), fetchall=False) -> Tuple:
-    with sqlite3.connect(lectionary_db_path) as conn:
-        cursor = conn.cursor()
-        cursor.execute(query, args)
-        result = cursor.fetchall if fetchall else cursor.fetchone()
-
-    if not result or not isinstance(result, tuple):
-        raise NoDataException()
-
-    return result
-
-
-def __get_table_columns(table_name: str) -> List[str]:
-    with sqlite3.connect(lectionary_db_path) as conn:
-        cursor = conn.cursor()
-        result = cursor.execute(f"PRAGMA table_info({table_name})")
-        return [row[1] for row in result]
-
-
-main_columns = __get_table_columns("yocal_main")
-lect_columns = __get_table_columns("yocal_lectionary")
 
 app = Flask(__name__)
 
@@ -49,34 +24,18 @@ def hello():
 @cross_origin()
 def get_date():
     try:
-        date = request.args.get("date")
-
-        # Get everything except the readings into a dictionary with table-name keys
-        query_result = __query("SELECT * FROM yocal_main WHERE date = ?", (date,))
-        main_data = dict(zip(main_columns, query_result))
+        date = request.args.get("date") or ""
+        main_data = get_data_dict(date)
 
         # Pass-through these fields
         result = {k: main_data[k] for k in ["fast", "basil"]}
 
         # Display date
-        result["date_str"] = (
-            f'{main_data["day_name"]}, {main_data["ord"]}'
-            f' {main_data["month"]} {main_data["year"]}'
-        )
+        result["date_str"] = build_date_str(main_data)
         result["tone"] = f'{main_data["tone"]} - {main_data["eothinon"]}'
 
         # Designations
-        result["desig"] = ", ".join(
-            filter(
-                lambda d: d,
-                [
-                    main_data["desig_a"],
-                    main_data["desig_g"],
-                    main_data["major_commem"],
-                    main_data["fore_after"],
-                ],
-            )
-        )
+        result["desig"] = build_designation(main_data)
 
         # Saints
         result["general_saints"] = main_data["class_5"]
@@ -94,7 +53,7 @@ def get_date():
             result["a_text_1"],
             result["a_text_2"],
         ) = (
-            __query(lect_query_text, (main_data["a_code"],))
+            query(lect_query_text, (main_data["a_code"],))
             if main_data["a_code"]
             else ["" for _ in range(4)]
         )
@@ -106,7 +65,7 @@ def get_date():
             _,
             result["g_text"],
         ) = (
-            __query(lect_query_text, (main_data["g_code"],))
+            query(lect_query_text, (main_data["g_code"],))
             if main_data["g_code"] and main_data["g_code"] != main_data["a_code"]
             else ["" for _ in range(4)]
         )
@@ -118,7 +77,7 @@ def get_date():
             result["x_text_1"],
             result["x_text_2"],
         ) = (
-            __query(lect_query_text, (main_data["x_code"],))
+            query(lect_query_text, (main_data["x_code"],))
             if main_data["x_code"]
             else ["" for _ in range(4)]
         )
@@ -130,7 +89,7 @@ def get_date():
             result["c_text_1"],
             result["c_text_2"],
         ) = (
-            __query(lect_query_text, (main_data["c_code"],))
+            query(lect_query_text, (main_data["c_code"],))
             if main_data["c_code"]
             else ["" for _ in range(4)]
         )
@@ -169,22 +128,7 @@ def get_date():
 
 @app.route("/services", methods=["GET"])
 @cross_origin()
-def get_services():
-    date = request.args.get("date")
-    num_services = request.args.get("num_services")
-
-    # Connect to the SQLite database
-    with sqlite3.connect(services_db_path) as conn:
-        cursor = conn.cursor()
-        cursor.execute(
-            'SELECT date_str, commemoration, Group_Concat(d.text, ", ")'
-            " FROM services s JOIN descriptions d ON d.service_id = s.id"
-            " WHERE timestamp >= ?"
-            " GROUP BY s.id"
-            " LIMIT ?",
-            (date, num_services),
-        )
-        results = cursor.fetchall()
-
-    result = [dict(zip(["date", "commemoration", "description"], r)) for r in results]
-    return jsonify(result)
+def services():
+    date = request.args.get("date") or ""
+    num_services = int(request.args.get("num_services") or 0)
+    return jsonify(get_services(date, num_services))

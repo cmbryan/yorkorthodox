@@ -5,13 +5,17 @@ import os
 from pathlib import Path
 import sqlite3
 
+from rest.util import build_date_str, build_designation, get_data_dict
+
 
 cwd = Path(os.path.realpath(os.path.dirname(__file__)))
 
-lectionary_db_path = cwd / '..' / 'db' / 'lectionary_2021_2031.db'
+lectionary_db_path = cwd / '..' / 'db' / 'YOCal_master.db'
 output_path = cwd / '..' / 'db' / 'services.db'
 if os.path.exists(output_path):
     os.remove(output_path)
+assert os.path.exists(output_path.parent), "lectionary database is needed"
+
 
 with sqlite3.connect(output_path) as service_conn, \
      sqlite3.connect(lectionary_db_path) as lectionary_conn:
@@ -28,14 +32,13 @@ with sqlite3.connect(output_path) as service_conn, \
 
     for service in services:
         # Get relevant information from the lectionary
-        lectionary_cur.execute('SELECT date_str, major_commem'
-                               ' FROM main WHERE date_code=?',
-                               (service['date'],))
-        lectionary_data = lectionary_cur.fetchone()
+        lectionary_data = get_data_dict(service["date"])
+        date_str = build_date_str(lectionary_data)
+        designation = build_designation(lectionary_data)
 
         service_cur.execute('INSERT INTO services (timestamp, date_str, commemoration)'
                     'VALUES (?, ?, ?)',
-                    (f'{service["date"]} {service["time"]}', *lectionary_data))
+                    (f'{service["date"]} {service["time"]}', date_str, designation))
         service_id = service_cur.lastrowid
 
         for description in service['description']:
