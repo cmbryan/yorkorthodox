@@ -9,14 +9,14 @@ RUN addgroup -g ${GROUP_ID} -S user && \
 COPY sudoers /etc/sudoers.d/sudoers
 
 RUN apk update && \
-    apk add --no-cache python3 py3-pip git curl sudo openssh sqlite
+    apk add --no-cache python3 py3-pip git curl sudo openssh sqlite py3-pytest
 
 # Set the working directory
 WORKDIR /app
 
 # Copy your Flask application code into the container
 COPY . /app
-RUN pip3 install -r rest/requirements.txt -r site/requirements.txt
+RUN pip3 install -r requirements.txt -r rest/requirements.txt -r site/requirements.txt
 
 EXPOSE 8000 5000
 

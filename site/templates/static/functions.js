@@ -35,7 +35,7 @@ function getData(url, mode, callback) {
 
 function setInnerHtmlIfExists(id, content) {
     var element = document.getElementById(id);
-    if (element) {
+    if (element && content !== undefined) {
         element.innerHTML = content;
     }
 }
@@ -44,7 +44,6 @@ function setInnerHtmlIfExists(id, content) {
 // dynamic content
 document.addEventListener("DOMContentLoaded", function () {
     var is_debug = window.location.host.startsWith("localhost") || window.location.host.startsWith("127.0.0.1");
-    is_debug = false;
     var rest_host = is_debug ? "http://localhost:5000" : "https://yorkorthodox-rest.onrender.com";
 
     var formattedDate = getTodaysDate();
@@ -62,10 +61,10 @@ document.addEventListener("DOMContentLoaded", function () {
             references += data.x_lect_2 ? `; ${data.x_lect_2}` : "";
 
             setInnerHtmlIfExists("daily-date", data.date_str);
-            setInnerHtmlIfExists("major-commem", data.major_commem);
+            setInnerHtmlIfExists("major-commem", data.desig);
             setInnerHtmlIfExists("daily-lect", references);
-            setInnerHtmlIfExists("daily-commem-general", data.general_commem);
-            setInnerHtmlIfExists("daily-commem-british", data.british_commem);
+            setInnerHtmlIfExists("daily-commem-general", data.general_saints);
+            setInnerHtmlIfExists("daily-commem-british", data.british_saints);
 
             setInnerHtmlIfExists("a_text_1", data.a_text_1);
             setInnerHtmlIfExists("a_text_2", data.a_text_2);
@@ -84,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
             content = "";
             for (const service of data) {
                 content += "<p>";
-                content += `<b>${service.date}</b><br/>`;
+                content += `<b>${service.day_name}, ${service.ord} ${service.month}, ${service.year}</b><br/>`;
                 if (service.commemoration) {
                     content += `<i>${service.commemoration}</i><br/>`;
                 }
