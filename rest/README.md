@@ -13,5 +13,5 @@ This service can be run on `localhost` using `run.sh`.
 
 ### Deployment
 
-The production server is hosted on `https://yorkorthodox-rest.onrender.com`.
+The production server is hosted on `https://yorkorthodox-rest-2.onrender.com`.
 The render service will pick up any changes to the rest folder on main, and re-deploy automatically.

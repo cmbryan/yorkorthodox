@@ -44,7 +44,7 @@ function setInnerHtmlIfExists(id, content) {
 // dynamic content
 document.addEventListener("DOMContentLoaded", function () {
     var is_debug = window.location.host.startsWith("localhost") || window.location.host.startsWith("127.0.0.1");
-    var rest_host = is_debug ? "http://localhost:5000" : "https://yorkorthodox-rest.onrender.com";
+    var rest_host = is_debug ? "http://localhost:5000" : "https://yorkorthodox-rest-2.onrender.com";
 
     var formattedDate = getTodaysDate();
 
