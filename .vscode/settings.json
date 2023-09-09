@@ -6,5 +6,8 @@
     "python.analysis.typeCheckingMode": "basic",
     "black-formatter.interpreter": [
         "/usr/bin/python"
+    ],
+    "python.analysis.extraPaths": [
+        "./rest/app"
     ]
 }
