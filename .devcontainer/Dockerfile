@@ -11,4 +11,6 @@ RUN addgroup -g ${GROUP_ID} -S user && \
 
 RUN apk update && \
     apk add --no-cache python3 py3-pip git sudo openssh sqlite py3-pytest bash
-# RUN pip3 install -r requirements.txt
+
+COPY .devcontainer/requirements.txt /requirements.txt
+RUN pip3 install -r /requirements.txt

@@ -1,0 +1,4 @@
+black
+pytest
+flask
+flask-CORS

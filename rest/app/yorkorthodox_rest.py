@@ -5,10 +5,7 @@ import sqlite3
 from sqlite3 import Connection, Cursor
 from typing import List, Tuple
 
-from util import NoDataException, build_date_str, build_designation, get_data_dict, get_services, query
-
-
-
+from util import NoDataException, build_date_str, build_designation, get_data_dict, get_services, lectionary_db_path, query
 
 
 app = Flask(__name__)
@@ -52,7 +49,7 @@ def get_date():
             result["a_text_1"],
             result["a_text_2"],
         ) = (
-            query(lect_query_text, (main_data["a_code"],))
+            query(lectionary_db_path, lect_query_text, (main_data["a_code"],))
             if main_data["a_code"]
             else ["" for _ in range(4)]
         )
@@ -64,7 +61,7 @@ def get_date():
             _,
             result["g_text"],
         ) = (
-            query(lect_query_text, (main_data["g_code"],))
+            query(lectionary_db_path, lect_query_text, (main_data["g_code"],))
             if main_data["g_code"] and main_data["g_code"] != main_data["a_code"]
             else ["" for _ in range(4)]
         )
@@ -76,7 +73,7 @@ def get_date():
             result["x_text_1"],
             result["x_text_2"],
         ) = (
-            query(lect_query_text, (main_data["x_code"],))
+            query(lectionary_db_path, lect_query_text, (main_data["x_code"],))
             if main_data["x_code"]
             else ["" for _ in range(4)]
         )
@@ -88,7 +85,7 @@ def get_date():
             result["c_text_1"],
             result["c_text_2"],
         ) = (
-            query(lect_query_text, (main_data["c_code"],))
+            query(lectionary_db_path, lect_query_text, (main_data["c_code"],))
             if main_data["c_code"]
             else ["" for _ in range(4)]
         )
