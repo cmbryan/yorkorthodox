@@ -18,7 +18,7 @@ services:
     dev:
         build:
             context: ..
-            dockerfile: .devcontainer/Dockerfile
+            dockerfile: Dockerfile
         environment:
             PYTHONPATH: /workspace/rest
         volumes:
