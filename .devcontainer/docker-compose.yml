@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+    app:
+        build:
+            context: ../rest
+            dockerfile: Dockerfile
+        environment:
+            DEBUG: 1
+            PYTHONPATH: /workspace/rest
+        ports:
+            - 5000:5000
+        volumes:
+            - ..:/workspace
+        user: user
+        command: /workspace/rest/run.sh
+
+    dev:
+        build:
+            context: ..
+            dockerfile: .devcontainer/Dockerfile
+        volumes:
+            - ..:/workspace
+        user: user
+        command: sleep infinity

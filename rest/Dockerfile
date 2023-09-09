@@ -9,7 +9,7 @@ RUN addgroup -g ${GROUP_ID} -S user && \
 COPY sudoers /etc/sudoers.d/sudoers
 
 RUN apk update && \
-    apk add --no-cache python3 py3-pip git curl sudo openssh sqlite py3-pytest
+    apk add --no-cache python3 py3-pip git sudo openssh sqlite py3-pytest
 
 # Copy your Flask application code into the container
 COPY . /app
@@ -18,10 +18,10 @@ RUN chown -R user:user /app
 RUN pip3 install -r requirements.txt
 
 EXPOSE 5000
-ENV PYTHONPATH /app
+ENV PYTHONPATH /app/app
 
 RUN ./build.sh
 
 USER user
 
-ENTRYPOINT gunicorn -b 0.0.0.0:5000 --reload app.yorkorthodox_rest:app
+CMD ./run.sh

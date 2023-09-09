@@ -5,7 +5,7 @@ import sqlite3
 from sqlite3 import Connection, Cursor
 from typing import List, Tuple
 
-from .util import NoDataException, build_date_str, build_designation, get_data_dict, get_services, query
+from util import NoDataException, build_date_str, build_designation, get_data_dict, get_services, query
 
 
 
@@ -42,9 +42,8 @@ def get_date():
         result["british_saints"] = main_data["british"]
 
         # Lectionary
-        lect_query_text = (
-            "SELECT lect_1, lect_2, text_1, text_2 FROM yocal_lections where code = ?"
-        )
+        lect_query_text = "SELECT lect_1, lect_2, text_1, text_2" \
+                          " FROM yocal_lections where code = ?"
 
         # Epistles
         (
@@ -132,3 +131,7 @@ def services():
     date = request.args.get("date") or ""
     num_services = int(request.args.get("num_services") or 0)
     return jsonify(get_services(date, num_services))
+
+if __name__ == '__main__':
+    # Only use this in testing
+    app.run(host='0.0.0.0', port=5000, debug=True)

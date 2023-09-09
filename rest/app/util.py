@@ -43,11 +43,11 @@ def build_date_str(data: Dict[str, str]) -> str:
     return f'{data["day_name"]}, {data["ord"]} {data["month"]} {data["year"]}'
 
 
-def query(query, args=tuple(), fetchall=False) -> Tuple:
+def query(database: str, query_txt: str, args=tuple(), fetchall=False) -> Tuple:
     """Perform an SQL query and return some data, or throw an exception."""
-    with sqlite3.connect(lectionary_db_path) as conn:
+    with sqlite3.connect(database) as conn:
         cursor = conn.cursor()
-        cursor.execute(query, args)
+        cursor.execute(query_txt, args)
         result = cursor.fetchall if fetchall else cursor.fetchone()
 
     if not result or not isinstance(result, tuple):
@@ -58,7 +58,7 @@ def query(query, args=tuple(), fetchall=False) -> Tuple:
 
 def get_data_dict(date: str) -> Dict[str, str]:
     """Get the data for everything except the readings into a dictionary with table-name keys"""
-    query_result = query("SELECT * FROM yocal_main WHERE date = ?", (date,))
+    query_result = query(lectionary_db_path, "SELECT * FROM yocal_main WHERE date = ?", (date,))
     data = dict(zip(main_columns, query_result))
     return data
 
@@ -67,6 +67,7 @@ def get_services(date: str, num_services: int) -> List[Dict[str, str]]:
     """Get the next N services"""
     results = (
         query(
+            services_db_path,
             'SELECT date_str, commemoration, Group_Concat(d.text, ", ")'
             " FROM services s JOIN descriptions d ON d.service_id = s.id"
             " WHERE timestamp >= ?"

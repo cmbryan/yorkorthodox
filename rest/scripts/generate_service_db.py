@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 import sqlite3
 
-from app.util import build_date_str, build_designation, get_data_dict
+from util import build_date_str, build_designation, get_data_dict
 
 
 cwd = Path(os.path.realpath(os.path.dirname(__file__)))

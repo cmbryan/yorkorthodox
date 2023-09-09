@@ -1,20 +1,14 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
-	"name": "Python 3",
-	// "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bullseye",
-	"build": {
-		"dockerfile": "../Dockerfile"
-	},
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
+	"name": "yorkorthodox-dev",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "dev",
+	"workspaceFolder": "/workspace",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [5000, 8000],
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "./run.sh",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -28,16 +22,7 @@
 		}
 	},
 
-	// Configure tool-specific properties.
-	// "customizations": {},
-
 	"mounts": [
 		"source=${localEnv:HOME}/.gitconfig-personal,target=/root/.gitconfig,type=bind"
-	],
-
-	"containerEnv": {
-		"PYTHONPATH": "/workspaces/yorkorthodox:"
-	},
-
-	"postStartCommand": "sh run.sh"
+	]
 }
