@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-    app:
+    rest:
         build:
             context: ../rest
             dockerfile: Dockerfile
@@ -14,6 +14,17 @@ services:
             - ..:/workspace
         user: user
         command: /workspace/rest/run.sh
+
+    site:
+        build:
+            context: ../site
+            dockerfile: Dockerfile
+        ports:
+            - 8000:8000
+        volumes:
+            - ..:/workspace
+        user: user
+        command: /workspace/site/run.sh
 
     dev:
         build:

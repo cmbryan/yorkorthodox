@@ -31,7 +31,7 @@ jobs:
 
       - name: Build static pages
         run: |
-          staticjinja build --static static --outpath www
+          ./build.sh
         working-directory: site
 
       - name: Deploy to yorkorthodox.org

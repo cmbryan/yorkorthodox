@@ -1,4 +1,4 @@
-from .test_util import client
+from app.test.test_util import client
 
 
 def test_root_response(client):

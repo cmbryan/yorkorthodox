@@ -17,8 +17,7 @@ WORKDIR /app
 RUN chown -R user:user /app
 RUN pip3 install -r requirements.txt
 
-EXPOSE 5000
-ENV PYTHONPATH /app/app
+EXPOSE 8000
 
 RUN ./build.sh
 

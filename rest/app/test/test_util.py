@@ -1,6 +1,6 @@
 import pytest
 
-from ..yorkorthodox_rest import app
+from app.yorkorthodox_rest import app
 
 
 @pytest.fixture()

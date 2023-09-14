@@ -1,24 +1,31 @@
 from flask import Flask, render_template, request, jsonify
-from flask_cors import cross_origin
+from flask_cors import CORS
 import os
 import sqlite3
 from sqlite3 import Connection, Cursor
 from typing import List, Tuple
 
-from util import NoDataException, build_date_str, build_designation, get_data_dict, get_services, lectionary_db_path, query
+from app.util import (
+    build_date_str,
+    build_designation,
+    get_data_dict,
+    get_services,
+    lectionary_db_path,
+    NoDataException,
+    query
+)
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
-@cross_origin()
 def hello():
     return render_template("hello.html")
 
 
 @app.route("/lectionary", methods=["GET"])
-@cross_origin()
 def get_date():
     try:
         date = request.args.get("date") or ""
@@ -91,11 +98,13 @@ def get_date():
         )
 
         # Bold the readings for the Liturgy when appropriate
-        if (main_data["a_code"][0] == "G" and (main_data["a_code"][1] != "S" or main_data["a_code"] == "G7Sat")) or main_data["a_code"] in ["E36Wed", "E36Fri"]:
-            # There is no Liturgy Mon-Fri in Lent, or on Holy Saturday, or on Wed and Fri of Cheesefare Week
-            pass
+        has_liturgy = True
+        if main_data["a_code"]:
+            if (main_data["a_code"][0] == "G" and (main_data["a_code"][1] != "S" or main_data["a_code"] == "G7Sat")) or main_data["a_code"] in ["E36Wed", "E36Fri"]:
+                # There is no Liturgy Mon-Fri in Lent, or on Holy Saturday, or on Wed and Fri of Cheesefare Week
+                has_liturgy = False
 
-        else:
+        if has_liturgy:
             if main_data["c_code"]:
                 if main_data["is_comm_apos"]:
                     result["c_lect_1"] = f"<b>{result['c_lect_1']}</b>"
@@ -123,7 +132,6 @@ def get_date():
 
 
 @app.route("/services", methods=["GET"])
-@cross_origin()
 def services():
     date = request.args.get("date") or ""
     num_services = int(request.args.get("num_services") or 0)
