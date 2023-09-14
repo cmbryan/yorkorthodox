@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
             content = "";
             for (const service of data) {
                 content += "<p>";
-                content += `<b>${service.day_name}, ${service.ord} ${service.month}, ${service.year}</b><br/>`;
+                content += `<b>${service.date}</b><br/>`;
                 if (service.commemoration) {
                     content += `<i>${service.commemoration}</i><br/>`;
                 }
