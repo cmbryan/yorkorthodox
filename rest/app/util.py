@@ -1,3 +1,4 @@
+from datetime import date
 import os
 import sqlite3
 from typing import Dict, List, Tuple, Union
@@ -58,7 +59,7 @@ def query(
     return result
 
 
-def get_data_dict(date: str) -> Dict[str, str]:
+def get_data_dict(date: date) -> Dict[str, str]:
     """Get the data for everything except the readings into a dictionary with table-name keys"""
     query_result = query(
         lectionary_db_path, "SELECT * FROM yocal_main WHERE date = ?", (date,)
@@ -67,7 +68,7 @@ def get_data_dict(date: str) -> Dict[str, str]:
     return data
 
 
-def get_services(date: str, num_services: int) -> List[Dict[str, str]]:
+def get_services(date: date, num_services: int) -> List[Dict[str, str]]:
     """Get the next N services"""
     results = query(
         services_db_path,

@@ -7,4 +7,5 @@ MarkupSafe
 Werkzeug
 flask
 flask-CORS
+flask-smorest
 apsw
