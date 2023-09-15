@@ -9,17 +9,23 @@ blp = Blueprint(
 )
 
 
-class ServicesParameterSchema(mm.Schema):
-    """The query parameters required for the end-point."""
+class ServiceSchema(mm.Schema):
+    date = mm.fields.Str()
+    commemoration = mm.fields.Str()
+    description = mm.fields.Str()
 
+
+class ServicesQueryArgsSchema(mm.Schema):
     date = mm.fields.Date(required=True)
     num_services = mm.fields.Int(required=True)
+
 
 
 @blp.route("/services")
 class Services(MethodView):
     """An end-point to provide upcoming services and events."""
 
-    @blp.arguments(ServicesParameterSchema, location="query")
+    @blp.arguments(ServicesQueryArgsSchema, location="query")
+    @blp.response(200, ServiceSchema(many=True))
     def get(self, params):
         return jsonify(get_services(**params))

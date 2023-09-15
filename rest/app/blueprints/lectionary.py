@@ -14,9 +14,36 @@ from util import (
 blp = Blueprint("lectionary", __name__, description="Daily saints and readings")
 
 
-class LectionaryParameterSchema(mm.Schema):
-    """The query parameters required for the end-point."""
+class LectionarySchema(mm.Schema):
+    date_str = mm.fields.Str()
 
+    desig = mm.fields.Str()
+    basil = mm.fields.Str()
+    general_saints = mm.fields.Str()
+    british_saints = mm.fields.Str()
+
+    fast = mm.fields.Str()
+
+    a_lect_1 = mm.fields.Str()
+    a_text_1 = mm.fields.Str()
+    a_lect_2 = mm.fields.Str()
+    a_text_2 = mm.fields.Str()
+
+    c_lect_1 = mm.fields.Str()
+    c_text_1 = mm.fields.Str()
+    c_lect_2 = mm.fields.Str()
+    c_text_2 = mm.fields.Str()
+
+    x_lect_1 = mm.fields.Str()
+    x_text_1 = mm.fields.Str()
+    x_lect_2 = mm.fields.Str()
+    x_text_2 = mm.fields.Str()
+
+    g_lect = mm.fields.Str()
+    g_text = mm.fields.Str()
+
+
+class LectionaryQueryArgsSchema(mm.Schema):
     date = mm.fields.Date(required=True)
 
 
@@ -24,7 +51,8 @@ class LectionaryParameterSchema(mm.Schema):
 class Lectionary(MethodView):
     """An end-point to provide upcoming services and events."""
 
-    @blp.arguments(LectionaryParameterSchema, location="query")
+    @blp.arguments(LectionaryQueryArgsSchema, location="query")
+    @blp.response(200, LectionarySchema)
     def get(self, params):
         try:
             main_data = get_data_dict(params["date"])
