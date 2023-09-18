@@ -1,8 +1,8 @@
 import marshmallow as mm
 from flask import jsonify
 from flask.views import MethodView
-from flask_smorest import Blueprint
-from util import get_services
+from flask_smorest import Blueprint, abort
+from util import NoDataException, get_services
 
 blp = Blueprint(
     "services", __name__, description="Services for the parish in York, England"
@@ -28,4 +28,8 @@ class Services(MethodView):
     @blp.arguments(ServicesQueryArgsSchema, location="query")
     @blp.response(200, ServiceSchema(many=True))
     def get(self, params):
-        return jsonify(get_services(**params))
+        try:
+            return jsonify(get_services(**params))
+
+        except NoDataException:
+            abort(404, "No services")

@@ -161,4 +161,4 @@ class Lectionary(MethodView):
             return jsonify(result)
 
         except NoDataException:
-            abort(404, "Data not found")
+            abort(400, "Bad date")
