@@ -7,7 +7,6 @@ services:
             dockerfile: Dockerfile
         environment:
             DEBUG: 1
-            PYTHONPATH: /app/rest
         ports:
             - 5000:5000
         volumes:
