@@ -20,7 +20,11 @@ RUN pip3 install -r requirements.txt
 EXPOSE 5000
 ENV PYTHONPATH /app/app
 
-RUN ./build.sh
+WORKDIR /app/calendar
+RUN ./_build.sh
+
+WORKDIR /app/scripts
+RUN ./generate_service_db.py
 
 USER user
 

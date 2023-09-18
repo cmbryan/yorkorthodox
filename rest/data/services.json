@@ -23,7 +23,38 @@
         ]
     },
     {
-        "date": "2023-09-17",
+        "date": "2023-09-24",
+        "time": "09:30",
+        "description": [
+            "9.30am Matins",
+            "10.15am Divine Liturgy"
+        ]
+    },
+    {
+        "date": "2023-10-01",
+        "time": "09:30",
+        "description": [
+            "9.30am Matins",
+            "10.15am Divine Liturgy"
+        ]
+    },
+    {
+        "date": "2023-10-08",
+        "time": "09:30",
+        "description": [
+            "9.30am Matins",
+            "10.15am Divine Liturgy"
+        ]
+    },
+    {
+        "date": "2023-10-11",
+        "time": "6:30pm",
+        "description": [
+            "Daily Vespers &amp; Paraklesis to the Mother of God"
+        ]
+    },
+    {
+        "date": "2023-10-15",
         "time": "09:30",
         "description": [
             "9.30am Matins",

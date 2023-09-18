@@ -8,6 +8,9 @@ import sqlite3
 from util import build_date_str, build_designation, get_data_dict
 
 
+print("Building service database")
+
+
 cwd = Path(os.path.realpath(os.path.dirname(__file__)))
 
 lectionary_db_path = cwd / '..' / 'app' / 'db' / 'YOCal_master.db'
@@ -31,6 +34,8 @@ with sqlite3.connect(output_path) as service_conn, \
         services = json.load(input_fh)
 
     for service in services:
+        print(service)
+
         # Get relevant information from the lectionary
         lectionary_data = get_data_dict(service["date"])
         date_str = build_date_str(lectionary_data)
