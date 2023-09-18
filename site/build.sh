@@ -1,3 +1,3 @@
 #!/bin/sh
 
-staticjinja build --static static --outpath www
+staticjinja build --static static --outpath /app/www

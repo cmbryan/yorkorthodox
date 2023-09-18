@@ -7,13 +7,13 @@ services:
             dockerfile: Dockerfile
         environment:
             DEBUG: 1
-            PYTHONPATH: /workspace/rest
+            PYTHONPATH: /app/rest
         ports:
             - 5000:5000
         volumes:
-            - ..:/workspace
+            - ../rest:/app
         user: user
-        command: /workspace/rest/run.sh
+        command: /app/run.sh
 
     site:
         build:
@@ -24,16 +24,16 @@ services:
         ports:
             - 8000:8000
         volumes:
-            - ..:/workspace
+            - ../site:/app
         user: user
-        command: /workspace/site/run.sh
+        command: /app/run.sh
 
     dev:
         build:
             context: ..
             dockerfile: Dockerfile
         environment:
-            PYTHONPATH: /workspace/rest
+            PYTHONPATH: /workspace/rest:/workspace/site
         volumes:
             - ..:/workspace
         user: user
