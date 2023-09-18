@@ -15,24 +15,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: deployment
+    defaults:
+      run:
+        working-directory: ./site
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11'
+      - name: Build Docker Image
+        run: docker build -t site-docker-image .
 
-      - name: Install Python dependencies
-        run: |
-          pip install -r site/requirements.txt
-
-      - name: Build static pages
-        run: |
-          ./build.sh
-        working-directory: site
+      - name: Copy File from Docker Image
+        run: docker cp $(docker create site-docker-image):/app/www ./www
 
       - name: Deploy to yorkorthodox.org
         uses: sebastianpopp/ftp-action@v2.0.0
@@ -40,5 +35,5 @@ jobs:
           host: ${{ secrets.FTP_SERVER }}
           user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          localDir: "site/www"
+          localDir: "./site/www"
           remoteDir: "httpdocs/newsite_2023"
