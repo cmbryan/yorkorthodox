@@ -18,7 +18,8 @@
 				"alexcvzz.vscode-sqlite",
 				"github.vscode-github-actions",
 				"ms-python.black-formatter",
-				"ms-python.isort"
+				"ms-python.isort",
+				"mechatroner.rainbow-csv"
 			]
 		}
 	},

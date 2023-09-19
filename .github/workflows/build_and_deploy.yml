@@ -37,3 +37,10 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           localDir: "./site/www"
           remoteDir: "httpdocs/newsite_2023"
+
+      - name: Check URL response
+        uses: jtalk/url-health-check-action@v3
+        with:
+          url: https://yorkorthodox.org/newsite_2023  # CHANGE when deploying to main site
+          max-attempts: 3
+          retry-delay: 10s

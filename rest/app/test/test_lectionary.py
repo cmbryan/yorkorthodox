@@ -2,8 +2,8 @@ from app.test.test_util import client
 
 
 def test_root_response(client):
-    response = client.get("/")
-    assert b"<h1>yorkorthodox.org REST service</h1>" in response.data
+    response = client.get("/help")
+    assert b"<title>YorkOrthodox REST API</title>" in response.data
 
 
 def test_lectionary(client):
