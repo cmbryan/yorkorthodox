@@ -28,4 +28,6 @@ RUN ./generate_service_db.py
 USER user
 WORKDIR /app
 
+RUN pytest
+
 CMD ./run.sh
