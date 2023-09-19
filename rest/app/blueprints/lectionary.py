@@ -2,7 +2,7 @@ import marshmallow as mm
 from flask import jsonify
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from util import (
+from app.util import (
     NoDataException,
     build_date_str,
     build_designation,

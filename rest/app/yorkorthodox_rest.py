@@ -1,5 +1,5 @@
-from blueprints.lectionary import blp as LectionaryBlueprint
-from blueprints.services import blp as ServicesBlueprint
+from app.blueprints.lectionary import blp as LectionaryBlueprint
+from app.blueprints.services import blp as ServicesBlueprint
 from flask import Flask
 from flask_cors import CORS
 from flask_smorest import Api

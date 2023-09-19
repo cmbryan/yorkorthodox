@@ -2,7 +2,7 @@ import marshmallow as mm
 from flask import jsonify
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from util import NoDataException, get_services
+from app.util import NoDataException, get_services
 
 blp = Blueprint(
     "services", __name__, description="Services for the parish in York, England"

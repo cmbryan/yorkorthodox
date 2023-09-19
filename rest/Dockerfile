@@ -17,7 +17,7 @@ RUN chown -R user:user /app
 RUN pip3 install -r /app/requirements.txt
 
 EXPOSE 5000
-ENV PYTHONPATH /app/app
+ENV PYTHONPATH /app
 
 WORKDIR /app/calendar
 RUN ./_build.sh

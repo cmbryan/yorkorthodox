@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 import sqlite3
 
-from util import build_date_str, build_designation, get_data_dict
+from app.util import build_date_str, build_designation, get_data_dict
 
 
 print("Building service database")
