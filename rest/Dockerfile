@@ -13,9 +13,8 @@ RUN addgroup -g ${GROUP_ID} -S user && \
 
 # Copy your Flask application code into the container
 COPY . /app
-WORKDIR /app
 RUN chown -R user:user /app
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r /app/requirements.txt
 
 EXPOSE 5000
 ENV PYTHONPATH /app/app
@@ -27,5 +26,6 @@ WORKDIR /app/scripts
 RUN ./generate_service_db.py
 
 USER user
+WORKDIR /app
 
 CMD ./run.sh
