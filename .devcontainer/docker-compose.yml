@@ -12,7 +12,7 @@ services:
         volumes:
             - ../rest:/app
         user: user
-        command: /app/run.sh
+        command: sh -c "/app/run.sh > /app/container.log 2>&1"
 
     site:
         build:
@@ -25,7 +25,7 @@ services:
         volumes:
             - ../site:/app
         user: user
-        command: /app/run.sh
+        command: sh -c "./run.sh > /app/container.log 2>&1"
 
     dev:
         build:

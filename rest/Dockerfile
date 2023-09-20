@@ -30,4 +30,4 @@ WORKDIR /app
 
 RUN pytest
 
-CMD ./run.sh
+CMD sh -c "./run.sh > /app/container.log 2>&1"

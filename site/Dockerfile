@@ -11,7 +11,7 @@ RUN addgroup -g ${GROUP_ID} -S user && \
     adduser -u ${USER_ID} -S user -G user -s /bin/sh && \
     echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/sudoers
 
-# Copy your Flask application code into the container
+# Copy the application code into the container
 COPY . /app
 WORKDIR /app
 RUN chown -R user:user /app
@@ -23,4 +23,4 @@ RUN ./build.sh
 
 USER user
 
-CMD ./run.sh
+CMD sh -c "./run.sh > /app/container.log 2>&1"
