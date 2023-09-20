@@ -10,10 +10,12 @@
 
 {% block content %}
 <div id="pagecontent">
-    <h2>
-        <div id="daily-date"></div>
-    </h2>
-    <input type="date">
+    <div id="date-display-and-select">
+        <h2>
+            <div id="daily-date"></div>
+        </h2>
+        <input type="date" id="date-selector" onchange="dateSelector(event);">
+    </div>
     <div id="daily-date"></div>
     <b><div id="major-commem"></div></b>
     <p></p>
