@@ -9,6 +9,10 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [5000, 8000],
 
+	"containerEnv": {
+		"GIT_CONFIG_PARAMETERS": "'core.hooksPath=.githooks'"
+	},
+
 	"customizations": {
 		"vscode": {
 			"extensions": [
