@@ -59,7 +59,7 @@ def test_lectionary(client):
         "circumcision of Christ. You have been buried with him in "
         "baptism, in which you were also raised with him through faith by "
         "the working of God who raised him from the dead.<br><br>",
-        "c_text_2": "<em>Luke 2:20-21, 40-52</em><br>Then the shepherds returned, "
+        "c_text_2": "<em>Luke 2:20-21, 40-52</em><br>The shepherds returned, "
         "glorifying and praising God for all that they had heard and "
         "seen, just as it had been told to them. When the eight days had "
         "passed for the child to be circumcised, he was named Jesus, "
@@ -92,7 +92,7 @@ def test_lectionary(client):
         "Cæsarea in Cappadocia (379)",
         "fast": None,
         "g_lect": "Luke 19:1-10",
-        "g_text": "<em>Luke 19:1-10</em><br>He entered Jericho, and was passing "
+        "g_text": "<em>Luke 19:1-10</em><br>Jesus entered Jericho, and was passing "
         "through when a man called Zacchaeus appeared. He was a chief tax "
         "collector, and rich. He wanted to catch sight of Jesus, to see who "
         "he was, but being small in stature he could not because of the "
