@@ -1,5 +1,4 @@
 www
 __pycache__
 *.db
-mods.csv
 *.log
