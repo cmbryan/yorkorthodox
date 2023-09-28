@@ -12,6 +12,10 @@ h6 {
     line-height: 1.6;
 }
 
+.serifs {
+    font-family: "PT Serif";
+}
+
 /* .anchor {
   margin-top: -12rem;
   padding-top: 12rem;

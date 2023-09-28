@@ -63,14 +63,14 @@ function contentLoaded() {
     getData(`${getRestHost()}/lectionary?date=${formattedDate}`,
         'GET',
         function (data) {
-            var references = data.a_lect_1;
+            var references = `<p><i>Today's Readings:</i><br/>${data.a_lect_1}`;
             references += data.a_lect_2 ? `; ${data.a_lect_2}` : "";
             references += data.g_lect ? `; ${data.g_lect}` : "";
-            references += data.c_lect_1 ? `<p><i>For the commemoration:</i><br/>${data.c_lect_1}` : "";
+            references += data.c_lect_1 ? `</p><p><i>For the commemoration:</i><br/>${data.c_lect_1}` : "";
             references += data.c_lect_2 ? `; ${data.c_lect_2}` : "";
             references += data.x_lect_1 ? `<br/>${data.x_lect_1}` : "";
             references += data.x_lect_2 ? `; ${data.x_lect_2}` : "";
-            references += data.c_lect_1 ? `</p>` : "";
+            references += "</p>";
 
             setInnerHtmlIfExists("daily-date", data.date_str);
             setInnerHtmlIfExists("major-commem", data.desig);
