@@ -46,7 +46,19 @@ function setInnerHtmlIfExists(id, content) {
     }
 }
 
-function setLectionary(formattedDate) {
+function contentLoaded() {
+    for (const element of document.getElementsByClassName("waitforload")) {
+        element.style.visibility = "visible";
+    }
+
+    for (const element of document.getElementsByClassName("loader")) {
+        element.style.display = "none";
+    }
+}
+
+/*async*/ function setLectionary(formattedDate) {
+    // await new Promise(r => setTimeout(r, 5000));
+
     // Lectionary
     getData(`${getRestHost()}/lectionary?date=${formattedDate}`,
         'GET',
@@ -72,6 +84,8 @@ function setLectionary(formattedDate) {
             setInnerHtmlIfExists("c_text_2", data.c_text_2);
             setInnerHtmlIfExists("x_text_1", data.x_text_1);
             setInnerHtmlIfExists("x_text_2", data.x_text_2);
+
+            contentLoaded();
         }
     );
 
