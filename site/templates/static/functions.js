@@ -66,10 +66,11 @@ function contentLoaded() {
             var references = data.a_lect_1;
             references += data.a_lect_2 ? `; ${data.a_lect_2}` : "";
             references += data.g_lect ? `; ${data.g_lect}` : "";
-            references += data.c_lect_1 ? `<br/><i>For the commemoration:</i> ${data.c_lect_1}` : "";
+            references += data.c_lect_1 ? `<p><i>For the commemoration:</i><br/>${data.c_lect_1}` : "";
             references += data.c_lect_2 ? `; ${data.c_lect_2}` : "";
             references += data.x_lect_1 ? `<br/>${data.x_lect_1}` : "";
             references += data.x_lect_2 ? `; ${data.x_lect_2}` : "";
+            references += data.c_lect_1 ? `</p>` : "";
 
             setInnerHtmlIfExists("daily-date", data.date_str);
             setInnerHtmlIfExists("major-commem", data.desig);
