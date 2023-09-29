@@ -83,14 +83,31 @@ h6 {
 }
 
 #navlinks {
-    display: none;
+    display: block;
     font-size: 0px;
     background-color: black;
     padding: 0.4rem;
     width: 100%;
 }
 
-#navlinks a {
+#navlinks ul {
+    margin: unset;
+}
+
+#navlinks ul li {
+    display: inline;
+}
+
+#navlinks ul li ul {
+    display: none;
+    position: absolute;
+}
+
+#navlinks ul li:hover ul {
+    display: block;
+}
+
+#navlinks ul li a {
     font-size: unset;
     color: #f2f2f2;
     padding: .4em 1em;
@@ -98,6 +115,7 @@ h6 {
     font-size: 1.35rem;
     background-color: black;
     margin: -1px;
+    /* display: block; */
 }
 
 /* #topnav a:hover {
@@ -244,9 +262,9 @@ h2::before {
 
 /* Larger than mobile screen */
 @media (min-width: 40.0rem) {
-    #navlinks {
+    /* #navlinks {
         display: block;
-    }
+    } */
     #nic {
         display: none;
     }

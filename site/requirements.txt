@@ -5,3 +5,5 @@ MarkupSafe
 staticjinja
 watchdog
 flask
+requests
+beautifulsoup4

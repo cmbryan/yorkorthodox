@@ -3,4 +3,4 @@ set -e
 CWD=$(realpath $(dirname "$0"))
 
 $CWD/pre-push.wip_search $@
-pytest $CWD/..
+SITE_URL=http://site:8000 pytest $CWD/..
