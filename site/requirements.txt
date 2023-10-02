@@ -4,6 +4,5 @@ Jinja2
 MarkupSafe
 staticjinja
 watchdog
-flask
 requests
 beautifulsoup4

@@ -1,11 +1,10 @@
 click
-Flask
 gunicorn
 itsdangerous
 Jinja2
 MarkupSafe
 Werkzeug
-flask
+flask==2.3.3
 flask-CORS
 flask-smorest
 apsw
